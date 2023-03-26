@@ -1,6 +1,6 @@
 from segmentation_model import load_model as load_segmenter
 from classification_model import load_model as load_classifier
-from segmentation import get_segmented_masked_images
+from segmentation import get_masked_image
 from classification import infer_class
 
 import cv2
@@ -27,7 +27,7 @@ async def create_item(filedata: str = Form(...)):
     nparr = np.fromstring(recovered_image, np.uint8)
     image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-    masked_image, segmented_image = get_segmented_masked_images(image, segmentation_model)
+    masked_image= get_masked_image(image, segmentation_model)
     if masked_image is not None:
         image_to_classify = masked_image
     else:
@@ -41,8 +41,5 @@ async def create_item(filedata: str = Form(...)):
     retval, masked_buffer = cv2.imencode('.jpg', image_to_classify)
     masked_jpg_as_text = base64.b64encode(masked_buffer)
 
-    retval, segmented_buffer = cv2.imencode('.jpg', segmented_image)
-    segmented_jpg_as_text = base64.b64encode(segmented_buffer)
-
-    return {"class": inferred_class, "masked_image": masked_jpg_as_text, "segmented_image": segmented_jpg_as_text}
+    return {"class": inferred_class, "masked_image": masked_jpg_as_text}
 
