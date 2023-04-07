@@ -5,89 +5,25 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <style>
-    	#video {
-    		transform: rotateY(180deg);
-    		-webkit-transform:rotateY(180deg); /* Safari and Chrome */
-    		-moz-transform:rotateY(180deg); /* Firefox */
-    		
-    	}
-    </style>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-     <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.0/socket.io.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.0/socket.io.js'></script>
 </head>
 
 <body>
     <div id="container">
-        <canvas id="canvasOutput"></canvas>
+        <!-- <canvas id="canvasOutput"></canvas> -->
         <video autoplay="true" id="videoElement"></video>
+        <img id="image" width="400" height="300">
     </div>
 
-    <div class = 'video'>
-        <img id="image">
+    <div>
+        <p id = "inferred_class">
+        </p>
     </div>
 
-    <script>
-        var socket = io('http://localhost:5000');
-
-        socket.on('connect', function(){
-            console.log("Connected...!", socket.connected)
-        });
-
-        const video = document.querySelector("#videoElement");
-
-        video.width = 500; 
-        video.height = 375; ;
-
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch(function (err0r) {
-                console.log(err0r)
-                console.log("Something went wrong!");
-            });
-        }
-
-        function capture(video, scaleFactor) {
-            if(scaleFactor == null){
-                scaleFactor = 1;
-            }
-            var w = video.videoWidth * scaleFactor;
-            var h = video.videoHeight * scaleFactor;
-            var canvas = document.createElement('canvas');
-                canvas.width  = w;
-                canvas.height = h;
-            var ctx = canvas.getContext('2d');
-                ctx.drawImage(video, 0, 0, w, h);
-            return canvas;
-        }
-
-        const FPS = 22;
-
-        setInterval(() => {
-            // cap.read(src);
-
-            var type = "image/png"
-            var video_element = document.getElementById("videoElement")
-            var frame = capture(video_element, 1)
-            var data = frame.toDataURL(type);
-
-            data = data.replace('data:' + type + ';base64,', '');
-            
-            console.log("here")
-            socket.emit('image', data);
-        }, 10000/FPS);
-
-
-        socket.on('response_back', function(image){
-            const image_id = document.getElementById('image');
-            image_id.src = image;
-        });
-
+    <script src = "{{url_for('static', filename='main.js')}}">
     </script>
 
 </body>

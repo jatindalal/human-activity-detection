@@ -10,7 +10,7 @@ from classification_model import load_model as load_classifier
 from segmentation import get_masked_image
 from classification import infer_class
 
-app = Flask(__name__, template_folder='./templates')
+app = Flask(__name__, template_folder='./templates', static_folder='./static')
 socketio = SocketIO(app,cors_allowed_origins='*' )
 
 segmentation_model = load_segmenter()
@@ -49,9 +49,8 @@ def receive_image(image):
     b64_src = "data:image/jpg;base64,"
     processed_img_data = b64_src + masked_jpg_as_text
 
-    print(inferred_class)
-
     emit("response_back", processed_img_data)
+    emit("class_response", inferred_class)
 
 
 if __name__ == "__main__":
