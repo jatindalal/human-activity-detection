@@ -1,4 +1,4 @@
-var socket = io('http://localhost:5000');
+var socket = io(`${window.location.protocol}//${document.domain}:${location.port}`);
 
 socket.on('connect', function(){
     console.log("Connected...!", socket.connected)
@@ -17,7 +17,7 @@ if (navigator.mediaDevices.getUserMedia) {
     })
     .catch(function (err0r) {
         console.log(err0r)
-        console.log("Something went wrong!");
+        console.log("Can't access Webcam");
     });
 }
 
@@ -38,7 +38,6 @@ function capture(video, scaleFactor) {
 const FPS = 22;
 
 setInterval(() => {
-    // cap.read(src);
 
     var type = "image/png"
     var video_element = document.getElementById("videoElement")
