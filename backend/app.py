@@ -9,8 +9,21 @@ import base64
 import numpy as np
 
 from fastapi import FastAPI, Form
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = [
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event('startup')
 def load_models():
@@ -41,5 +54,8 @@ async def create_item(filedata: str = Form(...)):
     retval, masked_buffer = cv2.imencode('.jpg', image_to_classify)
     masked_jpg_as_text = base64.b64encode(masked_buffer)
 
-    return {"class": inferred_class, "masked_image": masked_jpg_as_text}
+    b64_src = "data:image/jpg;base64,"
+    processed_img_data = b64_src + masked_jpg_as_text.decode()
+
+    return {"class": inferred_class, "masked_image": processed_img_data}
 

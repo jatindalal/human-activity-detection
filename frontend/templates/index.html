@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +7,20 @@
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.0/socket.io.js'></script>
 </head>
 
 <body>
-    <div id="container">
-        <!-- <canvas id="canvasOutput"></canvas> -->
-        <video autoplay="true" id="videoElement"></video>
-        <img id="image" width="400" height="300">
+    <header>
+        <p>Human Activity Detection</p>
+    </header>
+    
+    <div id="wrapper">
+        <div id="container">
+            <!-- <canvas id="canvasOutput"></canvas> -->
+            <video autoplay="true" id="videoElement"></video>
+            <img id="image" width="400" height="300">
+        </div>
     </div>
-
     <div>
         <p id = "inferred_class">
         </p>

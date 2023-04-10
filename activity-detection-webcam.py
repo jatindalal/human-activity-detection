@@ -1,7 +1,7 @@
-from segmentation_model import load_model as load_segmenter
-from classification_model import load_model as load_classifier
-from segmentation import get_masked_image
-from classification import infer_class
+from backend.segmentation_model import load_model as load_segmenter
+from backend.classification_model import load_model as load_classifier
+from backend.segmentation import get_masked_image
+from backend.classification import infer_class
 
 import cv2
 from PIL import Image
