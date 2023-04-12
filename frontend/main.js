@@ -1,3 +1,6 @@
+const server_address = "localhost"
+const port = "80"
+
 const video = document.querySelector("#videoElement");
 
 video.width = 400;
@@ -43,7 +46,7 @@ setInterval(() => {
 
     data = data.replace(`data:${type};base64,`, '');
 
-    fetch("http://localhost:8000/uploadimage/", {
+    fetch("http://" + server_address + ":" + port + "/uploadimage/", {
         body: "filedata="+encodeURIComponent(data),
         headers: {
             Accept: "application/json",
