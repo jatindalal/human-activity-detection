@@ -35,7 +35,7 @@ function capture(video, scaleFactor) {
     return canvas;
 }
 
-const FPS = 22;
+const FPS = 10;
 
 setInterval(() => {
 
