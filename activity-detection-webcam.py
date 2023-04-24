@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from backend.segmentation_model import load_model as load_segmenter
 from backend.classification_model import load_model as load_classifier
 from backend.segmentation import get_masked_image

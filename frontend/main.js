@@ -1,5 +1,5 @@
 const server_address = "localhost"
-const port = "80"
+const port = "5000"
 
 const video = document.querySelector("#videoElement");
 
