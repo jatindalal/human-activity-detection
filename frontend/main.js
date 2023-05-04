@@ -1,21 +1,29 @@
 const server_address = "localhost"
+<<<<<<< HEAD
+const port = "8000"
+=======
 const port = "5000"
+>>>>>>> 796060729b64d9e7502f4b8e07095488689355ff
 
 const video = document.querySelector("#videoElement");
 
 video.width = 400;
 video.height = 300;
 
+const FPS = 22;
+
+let inferenceIntervalId = null;
+
 if (navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function (stream) {
-            video.srcObject = stream;
-            video.play();
-        })
-        .catch(function (err0r) {
-            console.log(err0r)
-            console.log("Can't access Webcam");
-        });
+    .then(function (stream) {
+        video.srcObject = stream;
+        video.play();
+    })
+    .catch(function (err0r) {
+        console.log(err0r)
+        console.log("Can't access Webcam");
+    });
 }
 
 function capture(video, scaleFactor) {
@@ -35,10 +43,14 @@ function capture(video, scaleFactor) {
     return canvas;
 }
 
+<<<<<<< HEAD
+let updateImageAndClass = () => {
+=======
 const FPS = 10;
 
 setInterval(() => {
 
+>>>>>>> 796060729b64d9e7502f4b8e07095488689355ff
     var type = "image/png"
     var video_element = document.getElementById("videoElement")
     var frame = capture(video_element, 1)
@@ -56,8 +68,33 @@ setInterval(() => {
     })
     .then((response) => response.json())
     .then((json) => {
-        document.getElementById("image").src=json.masked_image
+        document.getElementById("image").src = json.masked_image
         document.getElementById("inferred_class").innerText = "Activity Detected: " + json.class
     });
 
-}, 10000 / FPS);
+}
+
+const toggleButton = document.getElementById("toggle_inference");
+toggleButton.addEventListener("click", () => {
+    // console.log("clicked!")
+    if (inferenceIntervalId == null) {
+        inferenceIntervalId = setInterval(updateImageAndClass, 10000 / FPS);
+
+        toggleButton.innerText = "Stop Inference";
+    }
+    else {
+        clearInterval(inferenceIntervalId);
+        inferenceIntervalId = null;
+
+        toggleButton.innerText = "Start Inference";
+    }
+
+});
+
+
+
+
+
+
+
+
