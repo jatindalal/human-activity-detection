@@ -1,16 +1,12 @@
 const server_address = "localhost"
-<<<<<<< HEAD
-const port = "8000"
-=======
-const port = "5000"
->>>>>>> 796060729b64d9e7502f4b8e07095488689355ff
+const port = "80"
 
 const video = document.querySelector("#videoElement");
 
 video.width = 400;
 video.height = 300;
 
-const FPS = 22;
+const FPS = 10;
 
 let inferenceIntervalId = null;
 
@@ -43,14 +39,7 @@ function capture(video, scaleFactor) {
     return canvas;
 }
 
-<<<<<<< HEAD
 let updateImageAndClass = () => {
-=======
-const FPS = 10;
-
-setInterval(() => {
-
->>>>>>> 796060729b64d9e7502f4b8e07095488689355ff
     var type = "image/png"
     var video_element = document.getElementById("videoElement")
     var frame = capture(video_element, 1)
