@@ -4,7 +4,8 @@ A python application, API, Web Application to detect human activity using transf
 
 ## Setup
 ```shell
-# it is assumed that you have pytorch installed
+# since pytorch is installed differently on different platforms visit https://pytorch.org/get-started/locally/
+# to install it (torch and torchvision) packages are required
 
 pip install fastapi numpy opencv-python transformers \ 
     python-multipart transformers gunicorn uvicorn
