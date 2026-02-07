@@ -4,11 +4,7 @@ A python application, API, Web Application to detect human activity using transf
 
 ## Setup
 ```shell
-# since pytorch is installed differently on different platforms visit https://pytorch.org/get-started/locally/
-# to install it (torch and torchvision) packages are required
-
-pip install fastapi numpy opencv-python transformers \ 
-    python-multipart transformers gunicorn uvicorn
+pip install -r requirements.txt
 
 ```
 
@@ -16,16 +12,16 @@ pip install fastapi numpy opencv-python transformers \
 ### API
 ```bash
 cd backend
-uvicorn app:app --reload --port 5000
+uvicorn main.app:app --reload --port 8000
 ```
 
 ### Python script
 ```bash
-python3 activity-detection-webcam.py
+python3 main.py
 ```
 
 ### Frontend
-Requires backend running on port 5000, just use index.html
+Open up `frontend/index.html`, the backend api should be running at port 8000
 
 ## Screenshot
 ![screenshot](screenshot.png "screenshot")
