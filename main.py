@@ -7,6 +7,9 @@ from classifier import Classifier
 from segmenter import Segmenter
 
 vid = cv2.VideoCapture(0)
+if not vid.isOpened():
+    raise RuntimeError("[!] Could not open camera")
+
 segmenter = Segmenter()
 classifier = Classifier()
 
@@ -14,6 +17,9 @@ USE_MASKED = True # usually gives worse classification
 
 while True:
     ret, frame = vid.read()
+    if not ret or frame is None:
+        raise RuntimeError("[!] Camera read failed")
+
     mask = segmenter.segment(frame).astype(np.float32) / 255.0
     masked_frame = (frame.astype(np.float32) * mask[..., None]).astype(np.uint8)
     if USE_MASKED:
